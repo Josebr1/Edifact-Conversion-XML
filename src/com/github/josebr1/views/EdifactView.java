@@ -5,31 +5,16 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 import com.github.josebr1.controllers.EdifactController;
 
 public class EdifactView {
 
-	/*public static void main(String[] args) throws FileNotFoundException, IOException, SAXException {
-		// TODO Auto-generated method stub
-
-		
-	}*/
-	
 	private JButton btnConvert;
 	private JButton btnSearch;
 	private TitledBorder titleBorderLogs;
-	private JPanel logContainer;
 	private Icon iconBtnConvert;
 	private Icon iconBtnSearch;
 	private FileDialog fileDialog;
@@ -50,7 +35,7 @@ public class EdifactView {
 		
 		iconBtnConvert = new ImageIcon(getClass().getResource("/com/github/josebr1/resources/icon_run.png"));
 		btnConvert = new JButton("Convert");
-		btnConvert.setBounds(0, 0, 125, 50);
+		btnConvert.setBounds(0, 0, 125, 30);
 		btnConvert.setIcon(iconBtnConvert);
 		btnConvert.addActionListener(new ActionListener() {
 			
@@ -60,7 +45,6 @@ public class EdifactView {
 					JOptionPane.showMessageDialog(null, "Not file");
 					return;
 				}
-				
 				EdifactController controller = new EdifactController();
 				String result = controller.toXMLConvert(pathFileEdi);
 				setLog(result);
@@ -72,7 +56,7 @@ public class EdifactView {
 		
 		iconBtnSearch = new ImageIcon(getClass().getResource("/com/github/josebr1/resources/icon_search.png"));
 		btnSearch = new JButton("Search");
-		btnSearch.setBounds(125, 0, 125, 50);
+		btnSearch.setBounds(125, 0, 125, 30);
 		btnSearch.setIcon(iconBtnSearch);
 		btnSearch.addActionListener(new ActionListener() {
 			
@@ -84,37 +68,28 @@ public class EdifactView {
 				System.out.println(pathFileEdi);
 			}
 		});
-		
-		
+
 		titleBorderLogs = BorderFactory.createTitledBorder("Logs");
-		
-		logContainer = new JPanel();
-		logContainer.setLayout(null);
-		//logContainer.setBackground(Color.BLUE);
-		logContainer.setBounds(0, 50, 250, 80);
-		logContainer.setBorder(titleBorderLogs);
-		
+
 		txtLogs = new JTextArea();
-		txtLogs.setBounds(5, 20, 238, 50);
+		txtLogs.setBounds(2, 32, 240, 85);
 		txtLogs.setLineWrap(true);
 		txtLogs.setEditable(false);
-		
-		logContainer.add(txtLogs);
-		
+		txtLogs.setBorder(titleBorderLogs);
+
 		container.add(btnConvert);
 		container.add(btnSearch);
-		container.add(logContainer);
+		container.add(txtLogs);
 		
 		view.add(container);
 		view.setVisible(true);
 		view.setResizable(false);
 		view.setLocationRelativeTo(null);
-		view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		view.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 	
 	private void setLog(String log) {
 		txtLogs.setText("");
 		txtLogs.setText(log);
 	}
-
 }
