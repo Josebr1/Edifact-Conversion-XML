@@ -22,6 +22,10 @@ public class EdifactView {
 	private File[] pathFileEdi;
 	private JTextArea txtLogs;
 
+    public EdifactView() {
+        pathFileEdi = new File[]{};
+    }
+
 	public void execute() {
 		
 		JFrame view = new JFrame("Convert Edifact to xml");
