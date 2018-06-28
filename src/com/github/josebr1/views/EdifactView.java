@@ -1,7 +1,6 @@
 package com.github.josebr1.views;
 
-import java.awt.FileDialog;
-import java.awt.Frame;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -22,11 +21,7 @@ public class EdifactView {
 	private FileDialog fileDialog;
 	private File[] pathFileEdi;
 	private JTextArea txtLogs;
-	
-	public EdifactView() {
 
-	}
-	
 	public void execute() {
 		
 		JFrame view = new JFrame("Convert Edifact to xml");
@@ -76,13 +71,17 @@ public class EdifactView {
 
 		txtLogs = new JTextArea();
 		txtLogs.setBounds(2, 32, 240, 85);
+		txtLogs.setWrapStyleWord(true);
 		txtLogs.setLineWrap(true);
 		txtLogs.setEditable(false);
-		txtLogs.setBorder(titleBorderLogs);
+
+		JScrollPane scrollPane = new JScrollPane(txtLogs);
+		scrollPane.setBounds(2, 32, 240, 85);
+		scrollPane.setBorder(titleBorderLogs);
 
 		container.add(btnConvert);
 		container.add(btnSearch);
-		container.add(txtLogs);
+		container.add(scrollPane);
 		
 		view.add(container);
 		view.setVisible(true);
