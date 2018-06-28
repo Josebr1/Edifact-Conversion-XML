@@ -4,6 +4,8 @@ import java.awt.FileDialog;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Arrays;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -18,11 +20,11 @@ public class EdifactView {
 	private Icon iconBtnConvert;
 	private Icon iconBtnSearch;
 	private FileDialog fileDialog;
-	private String pathFileEdi;
+	private File[] pathFileEdi;
 	private JTextArea txtLogs;
 	
 	public EdifactView() {
-		pathFileEdi = "";
+
 	}
 	
 	public void execute() {
@@ -41,18 +43,19 @@ public class EdifactView {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (pathFileEdi.equals("")) {
+				if (pathFileEdi.length <= 0) {
 					JOptionPane.showMessageDialog(null, "Not file");
 					return;
 				}
 				EdifactController controller = new EdifactController();
-				String result = controller.toXMLConvert(pathFileEdi);
+				String result = controller.xml(pathFileEdi);
 				setLog(result);
 			}
 		});
 		
 		fileDialog = new FileDialog((Frame)null, "Select file edi");
 		fileDialog.setMode(FileDialog.LOAD);
+		fileDialog.setMultipleMode(true);
 		
 		iconBtnSearch = new ImageIcon(getClass().getResource("/com/github/josebr1/resources/icon_search.png"));
 		btnSearch = new JButton("Search");
@@ -63,12 +66,12 @@ public class EdifactView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				fileDialog.setVisible(true);
-				pathFileEdi = fileDialog.getDirectory() + fileDialog.getFile();
-				setLog(pathFileEdi);
+				System.out.println();
+				pathFileEdi = fileDialog.getFiles();
+				setLog(Arrays.toString(fileDialog.getFiles()));
 				System.out.println(pathFileEdi);
 			}
 		});
-
 		titleBorderLogs = BorderFactory.createTitledBorder("Logs");
 
 		txtLogs = new JTextArea();
